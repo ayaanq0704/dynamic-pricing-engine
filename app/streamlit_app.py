@@ -1405,7 +1405,7 @@ st.markdown("""
 <div style='text-align: center; color: #666;'>
     <p>🏨 <strong>RateWise</strong> - Dynamic Pricing Engine | Built with Streamlit & Machine Learning</p>
     <p>💡 Demonstrating AI-powered pricing optimization for the hospitality industry</p>
-    <p>🔗 <a href="https://github.com/ayaanq0704/ratewise.git" target="_blank">GitHub</a> | 
+    <p>🔗 <a href="https://github.com/ayaanq0704/dynamic-pricing-engine" target="_blank">GitHub</a> | 
        📊 Portfolio Project | 🚀 Deployed on Streamlit Cloud</p>
 </div>
 """, unsafe_allow_html=True)
