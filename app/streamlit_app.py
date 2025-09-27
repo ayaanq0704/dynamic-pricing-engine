@@ -9,6 +9,56 @@ import os
 from datetime import datetime, timedelta
 import joblib
 
+# Check if files exist, create sample data if not
+def ensure_data_exists():
+    processed_data_path = '../data/processed/hotel_bookings_processed.csv'
+    
+    if not os.path.exists(processed_data_path):
+        st.warning("📊 Creating sample data for demonstration...")
+        
+        # Create sample data
+        np.random.seed(42)
+        n_samples = 1000
+        
+        sample_data = {
+            'hotel': np.random.choice(['Resort Hotel', 'City Hotel'], n_samples),
+            'lead_time': np.random.poisson(50, n_samples),
+            'total_nights': np.random.poisson(3, n_samples) + 1,
+            'total_guests': np.random.poisson(2, n_samples) + 1,
+            'is_weekend': np.random.choice([0, 1], n_samples),
+            'is_peak_season': np.random.choice([0, 1], n_samples),
+            'day_of_week': np.random.choice(range(7), n_samples),
+            'arrival_date_month_num': np.random.choice(range(1, 13), n_samples),
+            'is_repeated_guest': np.random.choice([0, 1], n_samples, p=[0.95, 0.05]),
+            'previous_cancellations': np.random.poisson(0.1, n_samples),
+            'booking_changes': np.random.poisson(0.2, n_samples),
+            'required_car_parking_spaces': np.random.choice([0, 1], n_samples, p=[0.9, 0.1]),
+            'total_of_special_requests': np.random.poisson(0.5, n_samples),
+            'hotel_encoded': np.random.choice([0, 1], n_samples),
+            'meal_encoded': np.random.choice([0, 1, 2, 3], n_samples),
+            'market_segment_encoded': np.random.choice([0, 1, 2, 3], n_samples),
+            'distribution_channel_encoded': np.random.choice([0, 1, 2], n_samples),
+            'reserved_room_type_encoded': np.random.choice(range(7), n_samples),
+            'deposit_type_encoded': np.random.choice([0, 1, 2], n_samples),
+            'customer_type_encoded': np.random.choice([0, 1, 2], n_samples),
+            'adr': np.random.gamma(2, 50) + 50  # Price data
+        }
+        
+        df = pd.DataFrame(sample_data)
+        
+        # Create directory if it doesn't exist
+        os.makedirs('../data/processed', exist_ok=True)
+        df.to_csv(processed_data_path, index=False)
+        
+        return df
+    else:
+        return pd.read_csv(processed_data_path)
+
+# Call this function at the start
+if 'sample_data' not in st.session_state:
+    st.session_state.sample_data = ensure_data_exists()
+
+
 # Add the src directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
