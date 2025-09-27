@@ -1278,10 +1278,11 @@ elif page == "🔍 Data Insights":
             # Price vs demand proxy (using total_nights as demand indicator)
             sample_for_scatter = data.sample(min(2000, len(data)), random_state=42)
             fig_scatter = px.scatter(sample_for_scatter, x='adr', y='total_nights',
-                                   title="Price vs Stay Length (Demand Proxy)",
-                                   trendline="ols", opacity=0.6,
-                                   color='hotel',
-                                   color_discrete_sequence=['lightblue', 'lightcoral'])
+                       title="Price vs Stay Length (Demand Proxy)",
+                       opacity=0.6,  # Removed trendline="ols"
+                       color='hotel',
+                       color_discrete_sequence=['lightblue', 'lightcoral'])
+
             fig_scatter.update_layout(xaxis_title="Price ($)", yaxis_title="Stay Length (nights)")
             st.plotly_chart(fig_scatter, use_container_width=True)
             
